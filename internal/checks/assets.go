@@ -44,9 +44,37 @@ func CheckAssets(distDir string) report.AssetsResult {
 
 		for _, asset := range assets {
 			totalAssets++
-			// Check if file exists (handle both absolute and relative paths)
+			// Check if file exists
+			// Key insight: on Unix, paths like /images/foo.jpg are URL paths, not absolute filesystem paths
+			// filepath.IsAbs returns true for these, but they're actually relative to the web root
 			assetPath := asset
-			if !filepath.IsAbs(asset) {
+			
+			// Check if it's a URL-style path (starts with /)
+			if strings.HasPrefix(asset, "/") {
+				// Path like /images/foo.jpg or /the-farm-house-demo/images/foo.jpg
+				// Strip any basePath prefix to find actual file in dist
+				relPath := asset
+				
+				// Find the position of known content paths
+				if idx := strings.Index(asset, "/images/"); idx >= 0 {
+					relPath = asset[idx:]
+				} else if idx := strings.Index(asset, "/_astro/"); idx >= 0 {
+					relPath = asset[idx:]
+				} else if strings.HasPrefix(asset, "/favicon") {
+					// Keep favicon as-is
+					relPath = asset
+				} else {
+					// Default: use as-is
+					relPath = asset
+				}
+				
+				// Concatenate to avoid filepath.Join ignoring the base on Unix
+				assetPath = distDir + relPath
+			} else if strings.HasPrefix(asset, "./") {
+				// Relative path starting with ./
+				assetPath = filepath.Join(distDir, asset[1:]) // Remove the leading .
+			} else {
+				// Regular relative path
 				assetPath = filepath.Join(distDir, asset)
 			}
 			

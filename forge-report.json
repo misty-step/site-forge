@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-02-15T05:53:36Z",
+  "directory": "/tmp/farm-house-v3/dist",
+  "overall": "FAIL",
+  "checks": {
+    "assets": {
+      "status": "FAIL",
+      "total": 10,
+      "missing": [
+        "/favicon.svg",
+        "/the-farm-house-demo/_astro/index.2xZUTRFX.css",
+        "/the-farm-house-demo/images/food-1.jpg",
+        "/the-farm-house-demo/images/chef-trey.png",
+        "/the-farm-house-demo/images/food-1.jpg",
+        "/the-farm-house-demo/images/cocktails.jpg",
+        "/the-farm-house-demo/images/pork-belly.jpg",
+        "/the-farm-house-demo/images/interior.jpg",
+        "/the-farm-house-demo/images/chef-trey.png",
+        "/the-farm-house-demo/images/barrel.png"
+      ],
+      "details": "Missing 10 assets"
+    },
+    "build": {
+      "status": "FAIL",
+      "pages": 0,
+      "details": ""
+    },
+    "lighthouse": {
+      "status": "FAIL",
+      "performance": 0,
+      "accessibility": 0,
+      "seo": 0,
+      "thresholds": {
+        "performance": 0,
+        "accessibility": 0,
+        "seo": 0
+      }
+    },
+    "screenshots": {
+      "status": "FAIL"
+    },
+    "vision": {
+      "status": "SKIP",
+      "threshold": 0
+    }
+  }
+}

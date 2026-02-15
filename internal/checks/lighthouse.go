@@ -83,7 +83,9 @@ func isLighthouseAvailable() bool {
 	if err != nil {
 		return false
 	}
-	return strings.Contains(string(output), "lighthouse")
+	// Check for "lighthouse" or just a version number (e.g., "13.0.3")
+	outputStr := string(output)
+	return strings.Contains(outputStr, "lighthouse") || strings.Contains(outputStr, ".")
 }
 
 func findAvailablePort() (int, error) {
